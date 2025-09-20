@@ -8,11 +8,13 @@ app.secret_key = 'your_very_secret_key'
 # --- Database Configuration ---
 # IMPORTANT: Update these details with your MySQL server information
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '011235813',
-    'database': 'quiz_system',
+    'host': os.environ.get('DB_HOST', 'localhost'), # Default to localhost for local testing
+    'user': os.environ.get('DB_USER', 'your_local_dev_user'),
+    'password': os.environ.get('DB_PASSWORD', 'your_local_dev_password'),
+    'database': os.environ.get('DB_NAME', 'quiz_system'),
 }
+
+app.secret_key = os.environ.get('SECRET_KEY', 'default_dev_secret_key') # Also use an env var for secret key
 
 def get_db_connection():
     """Establishes a connection to the database."""
