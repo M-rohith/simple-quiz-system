@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="text-4xl font-bold mb-6">Admin Dashboard</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Section to Add and View Subjects -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Manage Subjects</h2>
+        <form action="{{ url_for('add_subject') }}" method="POST" class="mb-6">
+            <label for="subject_name" class="block text-sm font-medium text-gray-700">New Subject Name</label>
+            <div class="flex items-center mt-1">
+                <input type="text" name="subject_name" required class="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <button type="submit" class="py-2 px-4 bg-indigo-600 text-white font-semibold rounded-r-md hover:bg-indigo-700">Add</button>
+            </div>
+        </form>
+        <h3 class="text-lg font-semibold mb-2">Existing Subjects</h3>
+        <ul class="list-disc list-inside space-y-1">
+            {% for subject in subjects %}
+            <li>{{ subject.name }}</li>
+            {% else %}
+            <li>No subjects found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Section to Add Questions -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Add New Question</h2>
+        <form action="{{ url_for('add_question') }}" method="POST" class="space-y-4">
+            <div>
+                <label for="subject_id" class="block text-sm font-medium text-gray-700">Subject</label>
+                <select name="subject_id" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    {% for subject in subjects %}
+                    <option value="{{ subject.id }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="question_text" class="block text-sm font-medium text-gray-700">Question Text</label>
+                <textarea name="question_text" rows="3" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Options</label>
+                <input type="text" name="option1" placeholder="Option 1" required class="mt-1 mb-2 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                <input type="text" name="option2" placeholder="Option 2" required class="mb-2 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                <input type="text" name="option3" placeholder="Option 3" required class="mb-2 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                <input type="text" name="option4" placeholder="Option 4" required class="block w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <label for="correct_answer" class="block text-sm font-medium text-gray-700">Correct Answer</label>
+                <select name="correct_answer" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full py-2 px-4 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">Add Question</button>
+        </form>
+    </div>
+</div>
+
+<!-- Section to View All Questions -->
+<div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4 border-b pb-2">All Questions</h2>
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for q in questions %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ q.subject_name }}</td>
+                    <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">{{ q.question_text }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500">No questions added yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

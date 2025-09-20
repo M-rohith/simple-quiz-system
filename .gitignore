@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.env # If you use environment variables for DB_CONFIG
+venv/ # If you use a virtual environment
+instance/
+
+# Flask specific
+*.sqlite # If you ever used sqlite for development
+
+# MySQL-specific (if any local configuration files)
+# Often not needed, as DB_CONFIG is in app.py

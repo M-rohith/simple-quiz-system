@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-4xl font-bold mb-2">Welcome, {{ session.username }}!</h1>
+    <p class="text-lg text-slate-600 mb-8">Choose a subject to start your quiz.</p>
+</div>
+
+<div class="flex justify-end mb-4">
+    <a href="{{ url_for('my_results') }}" class="py-2 px-4 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-200">View My Quiz History</a>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4 border-b pb-2">Available Quizzes</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for subject in subjects %}
+        <div class="border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center text-center hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-4">{{ subject.name }}</h3>
+            <a href="{{ url_for('take_quiz', subject_id=subject.id) }}" 
+               class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700">
+                Start Quiz
+            </a>
+        </div>
+        {% else %}
+        <p class="text-slate-500 col-span-full">No quizzes are available at the moment. Please check back later.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
