@@ -14,16 +14,6 @@ app.secret_key = os.environ.get('SECRET_KEY', 'a_very_insecure_default_for_local
 
 # Database Configuration
 DB_CONFIG = {
-<<<<<<< HEAD
-    'host': os.environ.get('DB_HOST', 'localhost'), # Default to localhost for local testing
-    'user': os.environ.get('DB_USER', 'your_local_dev_user'),
-    'password': os.environ.get('DB_PASSWORD', 'your_local_dev_password'),
-    'database': os.environ.get('DB_NAME', 'quiz_system'),
-}
-
-app.secret_key = os.environ.get('SECRET_KEY', 'default_dev_secret_key') # Also use an env var for secret key
-
-=======
     'host': os.environ.get('DB_HOST', 'localhost'),
     'user': os.environ.get('DB_USER', 'your_local_mysql_user'), # IMPORTANT: Your local MySQL username (e.g., 'root')
     'password': os.environ.get('DB_PASSWORD', 'your_local_mysql_password'), # IMPORTANT: Your local MySQL password (e.g., '')
@@ -31,7 +21,6 @@ app.secret_key = os.environ.get('SECRET_KEY', 'default_dev_secret_key') # Also u
 }
 
 # --- Database Connection Helper ---
->>>>>>> 63836e3 (Prepare for deployment: Added .env support, requirements.txt, and Procfile)
 def get_db_connection():
     """Establishes a connection to the database."""
     try:
